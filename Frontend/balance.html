@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Balance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../CSS/header.css" />
+  <link rel="stylesheet" href="../CSS/flash-sale.css" />
+  <link rel="stylesheet" href="../CSS/main-page.css" />
+  <link rel="stylesheet" href="../CSS/balance.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+  <header>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <div class="header-flex">
+        <div>
+          <a href="../Frontend/index.html">
+            <img src="..//Images/logo.jpeg">"
+
+            <p class="customz">Eximbank </p>
+          </a>
+        </div>
+        <div class="topnav-div">
+          <nav class="topnav">
+            <a href="..//Frontend/index.html" class="button topnav-selections">Home</a>
+            <a href="..//Frontend/history.html" class="button topnav-selections">History</a>
+            <a href="..//Frontend/balance.html" class="button topnav-selections">Balance</a>
+            <a href="..//Frontend/favorite.html" class="button topnav-selections">Favorite</a>
+            <a href="..//Frontend/product.html" class="button topnav-selections">Products</a>
+          </nav>
+        </div>
+      </div>
+      <div class="header-flex">
+        <div class="search-container">
+          <form>
+            <input type="search" placeholder="Search" />
+            <button class="search-button">
+              <img src="..//Images/search-icon.png" class="search-icon" />
+            </button>
+          </form>
+        </div>
+        <div class="favorite-icon">
+          <i class="fa fa-heart" style="font-size: 30px"></i>
+        </div>
+        <div class="bag-icon">
+          <i class="fa fa-shopping-bag" style="font-size: 28px"></i>
+        </div>
+      </div>
+      
+    </div>
+  </header>
+
+  <aside class="sidebar" data-sidebar>
+    <div class="sidebar-info">
+      <figure class="avatar-box">
+        <img src="" alt="User Avatar" width="80" id="test5">
+      </figure>
+
+      <div class="info-content">
+        <h1 class="name" title="Richard hanrick" id="longname">Richard hanrick</h1>
+        <p class="title" id="rank"></p>
+      </div>
+
+      <button class="info_more-btn" data-sidebar-btn>
+        <span>Show Contacts</span>
+        <ion-icon name="chevron-down"></ion-icon>
+      </button>
+    </div>
+
+    <div class="sidebar-info_more">
+
+      <div class="separator"></div>
+
+      <ul class="contacts-list">
+
+        <li class="contact-item">
+
+          <div class="icon-box">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+
+          <div class="contact-info">
+            <p class="contact-title">Username</p>
+
+            <p class="contact-link" id="ten"></p>
+          </div>
+
+        </li>
+
+        <li class="contact-item">
+
+          <div class="icon-box">
+            <ion-icon name="phone-portrait-outline"></ion-icon>
+          </div>
+
+          <div class="contact-info">
+            <p class="contact-title">Email</p>
+
+            <p  class="contact-link" id="email"></p>
+          </div>
+
+        </li>
+
+        <li class="contact-item">
+
+          <div class="icon-box">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+
+          <div class="contact-info">
+            <p class="contact-title">Phone</p>
+
+            <p id="phone" style="color: white;" ></p>
+          </div>
+
+        </li>
+
+        <li class="contact-item">
+
+          <div class="icon-box">
+            <ion-icon name="location-outline"></ion-icon>
+          </div>
+
+          <div class="contact-info">
+            <p class="contact-title">Score</p>
+
+          <p id="score" style="color: white;"></p>
+          </div>
+
+        </li>
+
+      </ul>
+
+      <div class="separator"></div>
+
+      <ul class="social-list">
+
+        <li class="social-item">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+        </li>
+
+        <li class="social-item">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+        </li>
+
+        <li class="social-item">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </aside>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    'use strict';
+
+    // Function to toggle element class
+    const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+
+    // Sidebar toggle functionality for mobile
+    const sidebar = document.querySelector("[data-sidebar]");
+    const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+    sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+    async function fetchUserData(userId) {
+        try {
+          const response = await axios.get(`http://localhost:5501/users/${userId}`);
+          const user = response.data;
+          console.log('User ID:', userId);
+          return user;
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+
+function loadUserData(user) {
+  if (user) {
+    document.getElementById('longname').textContent = `${user.name.firstname} ${user.name.lastname}`;
+    document.getElementById('test5').src = user.image;
+    document.getElementById('ten').textContent = user.username;
+    document.getElementById('score').textContent = "$"+user.score;
+    document.getElementById('email').textContent = user.email;
+    document.getElementById('phone').textContent = user.phone;
+    document.getElementById('rank').textContent = user.membership;
+  }
+}
+
+window.onload = async function() {
+  const userId = localStorage.getItem('userId');
+  const user = await fetchUserData(userId);
+  loadUserData(user);
+};
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.divider {
+  background-color: black;
+  width: 100vw;
+  padding-bottom: 12px;
+}
+
+.sale-text {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 20px;
+  margin: 0px;
+}
+
+.no-code-needed {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-decoration: underline;
+  text-align: center;
+  margin: 0px;
+  padding-top: 8px;
+}

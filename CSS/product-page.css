@@ -1,0 +1,264 @@
+:root {
+  --lapis-lazuli: #005F99;
+  --celestial-blue: #0196D8;
+  --lapis-lazuli-2: #005E98;
+  --mint-cream: #EFFAF0;
+  --lapis-lazuli-3: #00649F;
+}
+
+body {
+  background-color: var(--mint-cream);
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  width: fit-content;
+  margin-left: 180px;
+}
+
+
+
+.images-container {
+  width: fit-content; /* Keeps the container size to fit its content */
+  padding: 20px; /* Adds padding around the container */
+  border: 2px solid var(--lapis-lazuli); /* Solid border for definition */
+  border-radius: 10px; /* Rounded corners for a softer look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: var(--mint-cream); /* Light background color */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  margin: 20px auto; /* Center the container and add vertical spacing */
+
+}
+
+
+#test4 {
+  width: 25vw;
+  height: 25vw;
+  margin: 7px;
+  background-color: var(--lapis-lazuli-3);
+  border: 5px solid var(--celestial-blue); /* Frame border */
+  padding: 10px; /* Space between the image and the frame */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for 3D effect */
+  animation: pop 2s infinite;
+  border-radius: 10%; /* Rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+
+
+.product-details-text {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 26px; /* Larger font for emphasis */
+  font-weight: bold;
+  padding: 20px; /* Uniform padding */
+  color: var(--lapis-lazuli); /* Solid color for simplicity */
+  text-align: center; /* Center-align for balance */
+  border-bottom: 2px solid var(--lapis-lazuli); /* Underline for separation */
+  margin-bottom: 20px; /* Spacing below the text */
+}
+
+/* Product Description Container */
+.product-description-container {
+  width: 100%; /* Full-width container */
+  display: flex; /* Flex layout */
+  justify-content: center; /* Center-align items */
+  padding: 0 20px; /* Horizontal padding */
+  box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+
+#test2 {
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+
+}
+
+
+.flex-container-row {
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  text-align: center;
+}
+
+.product-information-container {
+  padding: 10px;
+
+}
+
+
+.product-name {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 38px;
+  margin-right: 1rem;
+  color: var(--mint-cream);
+  text-align: right;
+}
+
+.product-gender {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+  color: var(--lapis-lazuli-2);
+}
+
+.product-price {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 24px; /* Increased font size */
+  margin-bottom: 0px;
+  color: var(--mint-cream);
+  text-align: left;
+  font-weight: bold; /* Bold text */
+  background-color: var(--lapis-lazuli); /* Background color */
+  padding: 10px 15px; /* Padding for spacing */
+  border: 2px solid var(--celestial-blue); /* Border for emphasis */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+
+}
+
+.size-text-container {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.select-size-text {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+  padding-right: 50%;
+  color: var(--lapis-lazuli-3);
+}
+
+.size-guide-text {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+  margin: 0px;
+  color: var(--celestial-blue);
+}
+
+.product-theme-banner {
+  width: 50%;
+  height: auto;
+}
+
+.product-size-container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+}
+
+.product-size-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.size-button {
+  width: 180px;
+  height: auto;
+  padding: 12px 15px;
+  background-color: var(--mint-cream);
+  border: 1px solid var(--lapis-lazuli-2);
+  border-radius: 6px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.size-button:hover {
+  border: 1px solid var(--lapis-lazuli);
+}
+
+.shop-buttons {
+  width: 100%;
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+  margin: 5px 0px;
+  color: var(--mint-cream);
+}
+
+.add-to-bag {
+  background: linear-gradient(45deg, var(--lapis-lazuli), var(--celestial-blue));
+  color: var(--mint-cream);
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.add-to-bag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.favorite {
+  background: var(--mint-cream);
+  border: 2px solid var(--lapis-lazuli-2);
+  color: var(--lapis-lazuli);
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.favorite:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.button-icon {
+  margin-right: 10px;
+}
+
+
+
+@keyframes pop {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.popup-card {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+#closePopup {
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+

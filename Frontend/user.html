@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #userList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #userList .card {
+      background: #fff;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-link {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .btn-link:hover {
+      color: #0056b3;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid #007bff;
+    }
+
+    .card {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .collapse {
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>User List</h1>
+  <p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+     View list
+    </a>
+   
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+   <div id="userList" class="accordion"></div>  
+    </div>
+  </div>  
+  <p id="person"></p>
+  <label for="id">Look up by User ID:</label>
+  <input type="text" id="id" name="id"><br><br>
+  <button id="add" type="submit">Add User</button>
+  <button id="see" type="button">See Users</button>
+  <button id="indi" type="button">See Individual</button>
+  <button id="del" type="button">Delete User</button>
+  
+  <p>Register New User</p>
+
+  <form id="userForm">
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" name="firstname"><br><br>
+    
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="lastname"><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone"><br><br>
+    
+    
+    <fieldset>
+      <legend>Address</legend>
+      <label for="street">Street:</label>
+      <input type="text" id="street" name="street"><br><br>
+      
+      <label for="number">Number:</label>
+      <input type="text" id="number" name="number"><br><br>
+      
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city"><br><br>
+      
+      <label for="zipcode">Zip Code:</label>
+      <input type="text" id="zipcode" name="zipcode"><br><br>
+    </fieldset>
+    
+  </form>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    function createAccordionItem(id, title, content, isFirst) {
+      return `
+        <div class="card">
+          <div class="card-header" id="heading${id}">
+            <h5 class="mb-0">
+              <button class="btn btn-link ${isFirst ? '' : 'collapsed'}" data-toggle="collapse" data-target="#collapse${id}" aria-expanded="${isFirst}" aria-controls="collapse${id}">
+                ${title}
+              </button>
+            </h5>
+          </div>
+          <div id="collapse${id}" class="collapse ${isFirst ? 'show' : ''}" aria-labelledby="heading${id}" data-parent="#userList">
+            <div class="card-body">
+              ${content}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    async function fetchUsers() {
+      const response = await axios.get('http://localhost:5501/users');
+      const users = response.data;
+      const userList = document.getElementById('userList');
+      userList.innerHTML = ''; // Clear the existing list
+
+      users.forEach((user, index) => {
+        const isFirst = index === 0;
+        const content = `
+          Email: ${user.email}<br>
+          Username: ${user.username}<br>
+          Phone: ${user.phone}<br>
+          Score: ${user.score}<br>
+          Address: ${user.address.street}, ${user.address.city}, ${user.address.zipcode}
+        `;
+        userList.innerHTML += createAccordionItem(index, `${user.name.firstname} ${user.name.lastname}`, content, isFirst);
+      });
+    }
+
+    function fetchIndiUser(user) {
+            const person = document.getElementById('person');
+            userList.innerHTML = ''; 
+            person.innerHTML = '';
+            const isFirst = false;
+            const content = `
+          Email: ${user.email}<br>
+          Username: ${user.username}<br>
+          Phone: ${user.phone}<br>
+          Address: ${user.address.street}, ${user.address.city}, ${user.address.zipcode}
+        `;
+            person.innerHTML = createAccordionItem(1, `${user.name.firstname} ${user.name.lastname}`, content, isFirst);
+        }
+
+    document.getElementById('del').addEventListener("click", function () {
+      const id = document.getElementById('id').value;
+      axios.delete(`http://localhost:5501/users/${id}`)
+        .then(response => {
+          console.log('Item deleted:', response.data);
+          fetchUsers(); // Update the list after deletion
+        })
+        .catch(error => {
+          console.error('Error deleting item:', error);
+        });
+    });
+
+    document.getElementById('indi').addEventListener("click", function () {
+      const id = document.getElementById('id').value;
+      axios.get(`http://localhost:5501/users/${id}`)
+        .then(response => {
+          const user = response.data;
+          console.log('User data:', response.data);
+          fetchIndiUser(user); 
+        })
+        .catch(error => console.error('Error fetching items:', error));
+    });
+
+    document.getElementById('see').addEventListener("click", function (event) {
+        event.preventDefault();
+        person.innerHTML = '';
+        fetchUsers();
+        csview();
+    });
+
+    async function userCount() {
+        try {
+            const response = await axios.get('http://localhost:5501/users');
+            const users = response.data;
+            return users.length;
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
+
+    document.getElementById('add').addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent form submission
+        const count = await userCount();
+        const newUser = {
+          id: count + 1,
+          name: {
+            firstname: document.getElementById('firstname').value,
+            lastname: document.getElementById('lastname').value
+          },
+          email: document.getElementById('email').value,
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value,
+          phone: document.getElementById('phone').value,
+          address: {
+            street: document.getElementById('street').value,
+            number: document.getElementById('number').value,
+            city: document.getElementById('city').value,
+            zipcode: document.getElementById('zipcode').value
+          },
+          score: 1000,
+          image: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
+        };
+
+      axios.post('http://localhost:5501/users', newUser)
+        .then(response => {
+          console.log('User added:', response.data);
+          fetchUsers(); // Update the list after adding a user
+        })
+        .catch(error => {
+          console.error('Error adding user:', error);
+        });
+    });
+
+    function csview() {
+      axios.get('http://localhost:5501/users')
+        .then(response => console.log(response.data))
+        .catch(error => console.error('Error fetching items:', error));
+    }
+
+    // Initialize users on load
+    fetchUsers();
+  </script>
+</body>
+</html>

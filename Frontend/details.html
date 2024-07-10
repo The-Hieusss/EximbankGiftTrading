@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="..//CSS/header.css" />
+  <link rel="stylesheet" href="..//CSS/flash-sale.css" />
+  <link rel="stylesheet" href="..//CSS/product-page.css" />
+  <link rel="stylesheet" href="..//CSS/popup.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <!-- header content -->
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <div class="header-flex">
+        <div>
+          <a href="..//Frontend/index.html">
+            <img src="..//Images/logo.jpeg">
+            <p class="customz">Eximbank </p>
+          </a>
+        </div>
+        <div class="topnav-div">
+          <nav class="topnav">
+            <a href="..//Frontend/index.html" class="button topnav-selections">Home</a>
+            <a href="..//Frontend/history.html" class="button topnav-selections">History</a>
+            <a href="..//Frontend/balance.html" class="button topnav-selections">Balance</a>
+            <a href="..//Frontend/favorite.html" class="button topnav-selections">Favorite</a>
+          </nav>
+        </div>
+      </div>
+      <div class="header-flex">
+        <div class="search-container">
+          <form>
+            <input type="search" placeholder="Search" />
+            <button class="search-button">
+              <img src="..//Images/search-icon.png" class="search-icon" />
+            </button>
+          </form>
+        </div>
+        <div class="favorite-icon">
+          <i class="fa fa-heart" style="font-size: 30px"></i>
+        </div>
+        <div class="bag-icon">
+          <i class="fa fa-shopping-bag" style="font-size: 28px"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="divider">
+    <p class="sale-text">⚡ Flash Sale | Save Up to 50% ⚡</p>
+    <p class="no-code-needed">No code needed. Shop Now.</p>
+  </div>
+
+  <div>
+    <div class="parent-container">
+      <div class="images-container">
+        <div class="flex-container-row">
+          <img src="" class="card-image" id="test4" />
+        </div>
+        <div class="product-details-text">Product Details</div>
+        <div class="product-description-container">
+          <p class="product-description" id="test2"></p>
+        </div>
+      </div>
+      <div class="product-information-container">
+        <p class="product-name" id="test1"></p>
+        <p class="product-price" id="test3"></p>
+        <div> 
+          <button class="shop-buttons add-to-bag" id="exchange">Exchange</button>
+          <button class="shop-buttons favorite">
+            Favorite
+            <i class="fa fa-heart" style="font-size: 15px"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="popupCard" class="popup-card">
+    <div class="popup-content">
+      <span id="closePopup" class="close-button">&times;</span>
+      <h2>Exchange Successful!</h2>
+      <p>Enjoy your new gift</p>
+      <p id="remainingBalance">Remaining Balance: </p> 
+      <a href="..//Frontend/product.html"><button><p>See more products</p></button></a>
+    </div>
+  </div>
+
+  <div id="popupFailCard" class="popup-card">
+    <div class="popup-content">
+      <span id="closeFailPopup" class="close-button">&times;</span>
+      <h2>Exchange Failed!</h2>
+      <p>Not enough score to exchange for this product</p>
+      <a href="..//Frontend/product.html"><button><p>Try other products</p></button></a>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+   const userId = localStorage.getItem('userId');
+
+
+   async function loadUserData(userId) {
+      try {
+        const response = await axios.get(`http://localhost:5501/users/${userId}`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        return null;
+      }
+    }
+
+
+  async function saveUserData(user) {
+    try {
+      await axios.put(`http://localhost:5501/users/${userId}`, user);
+    } catch (error) {
+      console.error('Error saving user data:', error);
+    }
+  }
+
+    function pop(balance) {
+      document.getElementById("remainingBalance").textContent = `Remaining Balance: $${balance.toFixed(2)}`; 
+      document.getElementById("popupCard").style.display = "block";
+      document.body.classList.add("dimmed");
+    }
+
+    function popFail() {
+      document.getElementById("popupFailCard").style.display = "block";
+      document.body.classList.add("dimmed");
+    }
+    
+    async function Exchange(user) {
+        const product = JSON.parse(localStorage.getItem('selectedProduct'));
+        const price = parseFloat(document.getElementById('test3').textContent.replace('$', ''));
+        const score = user.score;
+        if (score >= price) {
+          const balance = Math.floor(score - price);
+          user.score = balance;
+          await addProductToHistory(product);
+          await saveUserData(user);
+          pop(balance);
+        } else {
+          popFail();
+        }
+        try {
+        const response = await axios.get(`http://localhost:5502/users/${userId}/history`);
+        const user = response.data;
+        console.log('User History:', user);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+      }
+
+
+async function addProductToHistory(product) {
+await axios.post(`http://localhost:5502/users/${userId}/history`, product);
+}
+
+    function displayProduct() {
+      const product = JSON.parse(localStorage.getItem('selectedProduct'));
+      if (product) {
+        document.getElementById('test1').textContent = product.title;
+        document.getElementById('test4').src = product.image;
+        document.getElementById('test3').textContent = product.price;
+        document.getElementById('test2').textContent = product.description;
+      }
+    }
+
+    window.onload = async function () {
+        const userId = localStorage.getItem('userId');
+        const user = await loadUserData(userId);
+        if (user) {
+          displayProduct();
+          document.getElementById('exchange').addEventListener("click", async function () {
+            await Exchange(user);
+          });
+        }
+      };
+    document.getElementById("closePopup").addEventListener("click", function() {
+      document.getElementById("popupCard").style.display = "none";
+      document.body.classList.remove("dimmed");
+    });
+
+    document.getElementById("closeFailPopup").addEventListener("click", function() {
+      document.getElementById("popupFailCard").style.display = "none";
+      document.body.classList.remove("dimmed");
+    });
+
+  </script>
+</body>
+</html>
