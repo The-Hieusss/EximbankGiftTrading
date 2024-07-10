@@ -1,5 +1,6 @@
 # EximbankGiftTrading
  Progressive Web Program that acts an online store/ gift trading application 
+ 
  Require Node.js/node_modules to run the servers 
  
  Bash this into terminal to instal the packages 
